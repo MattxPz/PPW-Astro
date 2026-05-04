@@ -1,0 +1,30 @@
+---
+interface Props {
+  titulo: string;
+  url: string;
+  descripcion?: string;
+}
+
+const { titulo, url, descripcion = "Sin descripción" } = Astro.props;
+---
+
+<div class="card">
+  <h3><a href={url} target="_blank" rel="noopener">{titulo}</a></h3>
+  <p>{descripcion}</p>
+</div>
+
+<style>
+  .card {
+    border: 1px solid #333;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #1a1a1a;
+  }
+  a {
+    color: #FF5D01;
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+  p { color: #aaa; font-size: 0.9rem; margin: 0.5rem 0 0; }
+</style>
