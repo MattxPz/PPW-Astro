@@ -1,5 +1,14 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
-export default defineConfig({});
+export default defineConfig({
+  // El sitio se genera como HTML estático por defecto
+  output: 'static',
+
+  // URL base del sitio (usada en SEO y sitemaps)
+  site: 'https://astro-campus.example.com',
+
+  // Servidor de desarrollo
+  server: {
+    port: 4321,
+  },
+});
