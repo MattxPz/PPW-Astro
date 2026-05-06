@@ -1,43 +1,124 @@
-# Astro Starter Kit: Minimal
+#  Proyecto Astro – Base con Consumo de API
 
-```sh
-pnpm create astro@latest -- --template minimal
+##  Objetivo
+Desarrollar una aplicación utilizando **Astro** que consuma una API externa, renderice datos dinámicamente y mantenga una estructura clara y escalable.
+
+---
+
+##  Características
+-  Proyecto creado con Astro
+-  Consumo de API (fetch)
+-  Renderizado dinámico de datos
+-  Separación de lógica y presentación
+-  Manejo básico de errores
+-  Estructura organizada
+
+---
+
+##  Creación del Proyecto
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+npm create astro@latest
+cd nombre-del-proyecto
+npm install
+npm run dev
 ```
+---
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+##  Estructura del Proyecto
+```
+src/
+  pages/
+    index.astro
+  components/
+  layouts/
+  services/
+    api.js
+```
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+##  Servicio API
 
-Any static assets, like images, can be placed in the `public/` directory.
+Archivo:
+src/services/api.js
 
-## 🧞 Commands
+Ejemplo:
+```
+export async function getItems() {
+  try {
+    const response = await fetch('https://api.example.com/items');
+    if (!response.ok) throw new Error('Error en la petición');
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+```
+---
 
-All commands are run from the root of the project, from a terminal:
+##  Uso en Astro
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Archivo:
+src/pages/index.astro
 
-## 👀 Want to learn more?
+Ejemplo:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+```
+import { getItems } from '../services/api';
+
+const items = await getItems();
+---
+
+<html>
+  <body>
+    <h1>Lista de datos</h1>
+
+    {items.length === 0 ? (
+      <p>No hay datos o ocurrió un error</p>
+    ) : (
+      <ul>
+        {items.map(item => (
+          <li>{item.nombre}</li>
+        ))}
+      </ul>
+    )}
+  </body>
+</html>
+```
+---
+
+##  Flujo de Datos
+
+1. Se realiza petición GET desde el servicio API
+2. Astro ejecuta la lógica en el bloque `---`
+3. Se renderizan los datos en HTML
+4. Se manejan errores mostrando mensajes alternativos
+
+---
+
+##  Validación
+-  La API responde correctamente
+-  Los datos se renderizan en la página
+-  Se manejan errores sin romper la app
+-  Código organizado y reutilizable
+
+---
+
+##  Buenas Prácticas
+- Separar lógica en `/services`
+- Evitar lógica compleja en `.astro`
+- Validar siempre `response.ok`
+- Manejar errores con try/catch
+
+---
+
+##  Notas Técnicas
+- Framework: Astro
+- Uso de fetch nativo
+- Renderizado en servidor (SSR por defecto en Astro)
+
+---
+
+##  Autor -- Mateo Paez
+Proyecto base para consumo de APIs con Astro
